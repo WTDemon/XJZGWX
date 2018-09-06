@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="js/jquery.touchSwipe.min.js"></script>
+    <style>
+        *{margin: 0;padding: 0}
+        #main{width:100%;height:100vh;position: fixed}
+        .divWH{width:100%;height:100%;position: absolute;top:0;left: 0;}
+        .none{display: none}
+        #main img{width:100%;height:100%}
+        #cli_dialog_div{display: none}
+    </style>
+</head>
+<body>
+    <div id="main">
+        <img src="img/bg.png" alt=""/>
+        <div id="d01" class="divWH"><img src="img/p01.png" alt=""/></div>
+        <div id="d02" class="divWH none"><img src="img/p02.png" alt=""/></div>
+        <div id="d03" class="divWH none"><img src="img/p03.png" alt=""/></div>
+        <div id="d04" class="divWH none"><img src="img/p04.png" alt=""/></div>
+        <div id="d05" class="divWH none"><img src="img/p05.png" alt=""/></div>
+        <div id="d06" class="divWH none"><img src="img/p06.png" alt=""/></div>
+        <div id="d07" class="divWH none"><img src="img/p07.png" alt=""/></div>
+        <div id="d08" class="divWH none"><img src="img/p08.png" alt=""/></div>
+        <div id="d09" class="divWH none"><img src="img/p09.png" alt=""/></div>
+        <div id="d10" class="divWH none"><img src="img/p10.png" alt=""/></div>
+        <div id="d11" class="divWH none"><img src="img/p11.png" alt=""/></div>
+        <div id="d12" class="divWH none"><img src="img/p12.png" alt=""/></div>
+    </div>
+    <script>
+        var nowpage = 0;
+        $("#main").swipe({
+            swipe:function(event, direction, distance, duration, fingerCount) {
+                if(direction == "up"){
+                    nowpage = nowpage + 1;
+                    if(nowpage >= 12){
+                        nowpage = 0;
+                        $(".divWH").eq(11).fadeOut(200).addClass("none");
+                        $(".divWH").eq(0).fadeIn(300).removeClass("none");
+                    }else{
+                        $(".divWH").eq(nowpage-1).fadeOut(200).addClass("none").next().fadeIn(300).removeClass("none");
+                    }
+                }else if(direction == "down"){
+                    nowpage = nowpage - 1;
+                    if(nowpage >= 0){
+                        $(".divWH").eq(nowpage).fadeIn(300).removeClass("none").next().fadeOut(200).addClass("none");
+                    }else{
+                        nowpage = 0;
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
